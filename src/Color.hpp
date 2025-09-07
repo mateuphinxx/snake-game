@@ -13,4 +13,10 @@ struct Color {
     static const Color RED;
     static const Color BLUE;
     static const Color DARK_GREEN;
+    static const Color LIGHT_GREEN;
+    static const Color YELLOW;
+    static const Color ORANGE;
+    static const Color PURPLE;
+    static const Color CYAN;
+    static const Color GOLD;
 };

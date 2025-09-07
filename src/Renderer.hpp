@@ -42,6 +42,8 @@ private:
     void renderGrid(int gridWidth, int gridHeight);
     void renderSnake(const Snake& snake);
     void renderFood(const Food& food);
-    void renderScore(int score);
+    void renderPowerUp(const PowerUp& powerUp);
+    void renderScore(int score, int highScore);
+    void renderPowerUpStatus(bool doublePointsActive);
     Vector2 gridToScreen(const Vector2& gridPos) const;
 };

@@ -89,7 +89,13 @@ void Renderer::renderGame(const Game& game) {
     renderGrid(game.getGridWidth(), game.getGridHeight());
     renderSnake(game.getSnake());
     renderFood(game.getFood());
-    renderScore(game.getScore());
+    
+    if (game.getPowerUp().isActive()) {
+        renderPowerUp(game.getPowerUp());
+    }
+    
+    renderScore(game.getScore(), game.getHighScore());
+    renderPowerUpStatus(game.isDoublePointsActive());
     present();
 }
 
@@ -170,23 +176,65 @@ void Renderer::renderSnake(const Snake& snake) {
         Vector2 screenPos = gridToScreen(body[i]);
         
         if (i == 0) {
+            setColor(Color::LIGHT_GREEN);
+            fillRect(screenPos.x + 1, screenPos.y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
             setColor(Color::GREEN);
+            drawRect(screenPos.x + 1, screenPos.y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
         } else {
-            setColor(Color::DARK_GREEN);
+            float intensity = 1.0f - (static_cast<float>(i) / body.size()) * 0.5f;
+            Color segmentColor(
+                static_cast<Uint8>(Color::GREEN.r * intensity),
+                static_cast<Uint8>(Color::GREEN.g * intensity),
+                static_cast<Uint8>(Color::GREEN.b * intensity)
+            );
+            setColor(segmentColor);
+            fillRect(screenPos.x + 2, screenPos.y + 2, CELL_SIZE - 4, CELL_SIZE - 4);
         }
-        
-        fillRect(screenPos.x + 1, screenPos.y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
     }
 }
 
 void Renderer::renderFood(const Food& food) {
     Vector2 screenPos = gridToScreen(food.getPosition());
     setColor(Color::RED);
-    fillRect(screenPos.x + 2, screenPos.y + 2, CELL_SIZE - 4, CELL_SIZE - 4);
+    fillRect(screenPos.x + 3, screenPos.y + 3, CELL_SIZE - 6, CELL_SIZE - 6);
+    setColor(Color::ORANGE);
+    fillRect(screenPos.x + 6, screenPos.y + 6, CELL_SIZE - 12, CELL_SIZE - 12);
 }
 
-void Renderer::renderScore(int score) {
+void Renderer::renderPowerUp(const PowerUp& powerUp) {
+    Vector2 screenPos = gridToScreen(powerUp.getPosition());
+    
+    Color powerUpColor;
+    switch (powerUp.getType()) {
+        case PowerUpType::DOUBLE_POINTS:
+            powerUpColor = Color::GOLD;
+            break;
+        case PowerUpType::SPEED_BOOST:
+            powerUpColor = Color::CYAN;
+            break;
+        case PowerUpType::SLOW_MOTION:
+            powerUpColor = Color::PURPLE;
+            break;
+        case PowerUpType::GOLDEN_APPLE:
+            powerUpColor = Color::YELLOW;
+            break;
+    }
+    
+    setColor(powerUpColor);
+    fillRect(screenPos.x + 1, screenPos.y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+    setColor(Color::WHITE);
+    drawRect(screenPos.x + 1, screenPos.y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+}
+
+void Renderer::renderScore(int score, int highScore) {
     renderText("Score: " + std::to_string(score), 10, 10, Color::WHITE);
+    renderText("High Score: " + std::to_string(highScore), 10, 35, Color::GOLD);
+}
+
+void Renderer::renderPowerUpStatus(bool doublePointsActive) {
+    if (doublePointsActive) {
+        renderText("DOUBLE POINTS!", WINDOW_WIDTH - 200, 10, Color::GOLD);
+    }
 }
 
 Vector2 Renderer::gridToScreen(const Vector2& gridPos) const {

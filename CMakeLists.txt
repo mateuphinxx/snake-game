@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
+find_package(SDL2_mixer REQUIRED)
 
 file(GLOB_RECURSE SOURCES 
     "src/*.cpp"
@@ -20,6 +21,7 @@ target_link_libraries(${PROJECT_NAME}
     SDL2::SDL2main
     SDL2_image::SDL2_image
     sdl_ttf::sdl_ttf
+    SDL2_mixer::SDL2_mixer
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE src)

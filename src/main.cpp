@@ -14,6 +14,10 @@ int main(int argc, char* argv[]) {
         return -1;
     }
     
+    game.getSoundManager().loadSound("eat", "assets/eat.wav");
+    game.getSoundManager().loadSound("powerup", "assets/powerup.wav");
+    game.getSoundManager().loadSound("game_over", "assets/game_over.wav");
+    
     bool running = true;
     auto lastUpdateTime = std::chrono::steady_clock::now();
     
