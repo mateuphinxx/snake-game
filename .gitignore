@@ -1,0 +1,9 @@
+build/
+*.exe
+*.dll
+conan.lock
+conanbuildinfo.txt
+conaninfo.txt
+CMakePresets.json
+.vs/
+.vscode/
