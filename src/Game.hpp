@@ -19,6 +19,7 @@ private:
 public:
     Game();
     void reset();
+    void startGame();
     void update();
     void handleFoodCollision();
     bool isGameOver() const;

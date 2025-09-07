@@ -4,7 +4,8 @@ Game::Game()
     : currentState(GameState::MENU),
       score(0),
       gameSpeed(INITIAL_SPEED) {
-    reset();
+    snake = std::make_unique<Snake>(Vector2(GRID_WIDTH / 2, GRID_HEIGHT / 2));
+    food = std::make_unique<Food>(GRID_WIDTH, GRID_HEIGHT);
 }
 
 void Game::reset() {
@@ -13,6 +14,10 @@ void Game::reset() {
     score = 0;
     gameSpeed = INITIAL_SPEED;
     currentState = GameState::PLAYING;
+}
+
+void Game::startGame() {
+    reset();
 }
 
 void Game::update() {

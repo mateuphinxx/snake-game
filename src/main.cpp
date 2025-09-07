@@ -33,13 +33,13 @@ int main(int argc, char* argv[]) {
                     
                 case InputHandler::Action::START_GAME:
                     if (game.getState() == GameState::MENU) {
-                        game.reset();
+                        game.startGame();
                     }
                     break;
                     
                 case InputHandler::Action::RESTART_GAME:
                     if (game.getState() == GameState::GAME_OVER) {
-                        game.reset();
+                        game.startGame();
                     }
                     break;
                     
