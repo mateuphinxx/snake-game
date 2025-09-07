@@ -1,6 +1,6 @@
 # Snake Game
 
-Enhanced Snake game built with C++ and SDL2, sound effects, and improved visuals.
+Snake game built with C++ and SDL2, sound effects, and improved visuals.
 
 ## Requirements
 
