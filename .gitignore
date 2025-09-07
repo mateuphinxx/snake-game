@@ -5,5 +5,7 @@ conan.lock
 conanbuildinfo.txt
 conaninfo.txt
 CMakePresets.json
+CMakeUserPresets.json
 .vs/
 .vscode/
+graph_info.json
